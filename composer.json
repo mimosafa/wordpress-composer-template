@@ -1,0 +1,23 @@
+{
+    "name": "mimosafa/wordpress-composer-template",
+    "type": "project",
+    "require": {
+        "johnpbloch/wordpress-core-installer": "^2.0",
+        "johnpbloch/wordpress-core": "^6.1"
+    },
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Mimoto, Toshimichi",
+            "email": "mimosafa@gmail.com"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "johnpbloch/wordpress-core-installer": true
+        }
+    },
+    "extra": {
+        "wordpress-install-dir": "src/public"
+    }
+}
