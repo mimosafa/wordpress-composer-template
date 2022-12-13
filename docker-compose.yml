@@ -1,0 +1,30 @@
+services:
+  db:
+    build: ./docker/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-db_root_password}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: mysql ${DB_NAME} --user=${DB_USER} --password="${DB_PASSWORD}" -s -e "SELECT 1;"
+      interval: 3s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - db_store:/var/lib/mysql
+  wp:
+    build: ./docker/php-apache
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - ${WEB_PORT:-80}:80
+    volumes:
+      - ./public:/var/www/html/public
+      - ./vendor:/var/www/html/vendor
+      - ./.env:/var/www/html/.env
+      - ./install.sh:/var/www/html/install.sh
+      - ./wp-cli.yml:/var/www/html/wp-cli.yml
+volumes:
+  db_store: {}

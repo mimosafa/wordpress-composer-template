@@ -3,7 +3,7 @@
     "type": "project",
     "require": {
         "johnpbloch/wordpress-core-installer": "^2.0",
-        "johnpbloch/wordpress-core": "^6.1"
+        "johnpbloch/wordpress-core": "*"
     },
     "license": "GPL-2.0-or-later",
     "authors": [
@@ -18,6 +18,7 @@
         }
     },
     "extra": {
-        "wordpress-install-dir": "src/public"
-    }
+        "wordpress-install-dir": "public"
+    },
+    "scripts": {}
 }

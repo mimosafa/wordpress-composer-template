@@ -1,2 +1,6 @@
+.env
+.env.*
+!.env.example
+
 /vendor/
-/src/public/
+/public/
