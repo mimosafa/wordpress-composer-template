@@ -30,12 +30,12 @@ Go to the project directory with `cd my-bedrock-project`.
 composer update
 ```
 
-### Prepare env files
+### Prepare env file
 
 ```zsh
 cp .env.example .env
 ```
-Edit these files.
+Edit .env file.
 
 ## Basic Usage
 

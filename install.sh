@@ -49,15 +49,16 @@ if wp core is-installed --allow-root; then
     exit 0
 elif [ -z "${WP_TITLE}" ] || [ -z "${WP_ADMIN_USER}" ] || [ -z "${WP_ADMIN_PASSWORD}" ] || [ -z "${WP_ADMIN_EMAIL}" ]; then
     echo 'WordPress installation has been skipped!'
-else
-    wp core install \
-    --allow-root \
-    --url=`wp_home` \
-    --title="${WP_TITLE}" \
-    --admin_user=${WP_ADMIN_USER} \
-    --admin_password="${WP_ADMIN_PASSWORD}" \
-    --admin_email=${WP_ADMIN_EMAIL}
+    exit
 fi
+
+wp core install \
+--allow-root \
+--url=`wp_home` \
+--title="${WP_TITLE}" \
+--admin_user=${WP_ADMIN_USER} \
+--admin_password="${WP_ADMIN_PASSWORD}" \
+--admin_email=${WP_ADMIN_EMAIL}
 
 #
 # Options
@@ -75,6 +76,8 @@ if [ -n "${WP_PERMALINK_STRUCTURE}" ]; then
         wprs+=" --tag-base=${WP_TAG_BASE}"
     fi
     eval $wprs
+
+    wp rewrite flush --allow-root
 fi
 
 if [ -n "${WP_TIMEZONE}" ]; then
@@ -88,5 +91,7 @@ fi
 if [ -n "${WP_TIME_FORMAT}" ]; then
     wp option update --allow-root time_format ${WP_TIME_FORMAT}
 fi
+
+echo "Your WordPress is available at '`wp_home`'."
 
 exit 0
